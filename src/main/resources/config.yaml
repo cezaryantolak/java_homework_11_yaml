@@ -1,8 +1,8 @@
 #Choose active environment: test1, test2, test3
 activeEnvironmentName: test3
 browser:
-  #Available browsers: chrome ; firefox ; default: IE
-  browserName: ""
+  #Available browsers: chrome ; firefox ; default: Edge
+  browserName: chrome
 environments:
   test1:
     envName: test1
