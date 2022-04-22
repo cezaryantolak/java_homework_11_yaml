@@ -24,6 +24,6 @@ public class TestBase {
     @AfterAll
     static void quit() {
         driver.quit();
-        log.debug("<<<<<<driver closed properly>>>>>");
+        log.info("<<<<<<driver closed properly>>>>>");
     }
 }

@@ -12,11 +12,10 @@ public class FormPopTest extends TestBase {
     private static final Logger log = LoggerFactory.getLogger("FormPopTest.class");
 
     @Test
-    public void shouldFillFormWithSuccess(){
+    public void shouldFillFormWithSuccess() throws InterruptedException {
         FormPage formPage = new FormPage(driver);
 
         formPage.setFirstName(System.getProperty("firstName"))
-        //formPage.setFirstName(System.getProperty("firstName");
                 .setLastName(System.getProperty("lastName"))
                 .setEmail(System.getProperty("email"))
                 .setAge(System.getProperty("age"))
@@ -30,6 +29,6 @@ public class FormPopTest extends TestBase {
 
         String message = formPage.getValidationMsg();
 
-        assertThat(message, equalTo(System.getProperty("message")));
+        assertThat("Wrong message", message, equalTo(System.getProperty("message")));
     }
 }

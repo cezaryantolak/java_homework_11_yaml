@@ -5,7 +5,6 @@ import configuration.model.EnvironmentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -13,6 +12,7 @@ public class AppProperties {
     Logger logger = LoggerFactory.getLogger(AppProperties.class);
     YamlReader yamlReader = new YamlReader();
     private BrowserModel browser;
+    public EnvironmentModel activeEnv;
 
     public AppProperties() {
         setSystemPropertiesFromYamlEnvironment();
@@ -24,35 +24,18 @@ public class AppProperties {
     }
 
     private void setSystemPropertiesFromYamlEnvironment() {
-        List<EnvironmentModel> listOfEnvironments = yamlReader.getConfig().getEnvironment().getListOfEnvironments();
-        boolean foundActiveEnvironment = false;
-        for (EnvironmentModel environmentModel : listOfEnvironments) {
-            if (environmentModel.isActive()) {
-                foundActiveEnvironment = true;
-                Map<String, Object> environmentProperties = environmentModel.getProperties();
-                for (Map.Entry entry : environmentProperties.entrySet()) {
-                    System.setProperty(entry.getKey().toString(), entry.getValue().toString());
-                    logger.info("Loaded environment property: {} = {}", entry.getKey().toString(), entry.getValue().toString());
-                }
-                logger.info("Loaded environment properties total: {}", environmentProperties.size());
-                break;
-            }
+        EnvironmentModel activeEnv = yamlReader.getConfig().getActiveEnvironment();
+        if (activeEnv == null) {
+            throw new IllegalArgumentException("Couldn't find evironment");
         }
-        if (foundActiveEnvironment == false) {
-            loadDefaultEnvironment();
-        }
-
-    }
-
-    private void loadDefaultEnvironment() {
-        logger.info("No environment was specified in config.yaml. Loading default properties for Test1");
-        Map<String, Object> environmentProperties = new YamlReader().getConfig().getEnvironment().getTest1().getProperties();
+        Map<String, Object> environmentProperties = activeEnv.getProperties();
         for (Map.Entry entry : environmentProperties.entrySet()) {
             System.setProperty(entry.getKey().toString(), entry.getValue().toString());
             logger.info("Loaded environment property: {} = {}", entry.getKey().toString(), entry.getValue().toString());
         }
         logger.info("Loaded environment properties total: {}", environmentProperties.size());
     }
+
 
     private void setBrowserProperties() {
         YamlReader yamlReader = new YamlReader();

@@ -4,10 +4,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +18,8 @@ public class BrowserHandler {
 
     public WebDriver getDriver() {
         this.browserName = System.getProperty("browserName");
-        logger.info("Choosed browser name: " + browserName);
+        logger.info("Chosen browser name: " + browserName);
+        logger.info("Used driver: " + driver);
         switch (this.browserName) {
             case "chrome":
                 ChromeOptions chromeOptions = new ChromeOptions();
@@ -33,9 +34,10 @@ public class BrowserHandler {
                 driver = new FirefoxDriver(firefoxOptions);
                 break;
             default:
-                InternetExplorerOptions optionsDefault = new InternetExplorerOptions();
-                WebDriverManager.iedriver().setup();
-                driver = new InternetExplorerDriver(optionsDefault);
+                EdgeOptions optionsEdge = new EdgeOptions();
+                WebDriverManager.edgedriver().setup();
+                optionsEdge.addArguments("start-maximized");
+                driver = new EdgeDriver(optionsEdge);
         }
         return this.driver;
     }

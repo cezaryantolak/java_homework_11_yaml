@@ -1,43 +1,43 @@
-#testedBrowser: CHROME
-#testedDataSet: test2
+#Choose active environment: test1, test2, test3
+activeEnvironmentName: test3
 browser:
   #Available browsers: chrome ; firefox ; default: IE
-  browserName: chrome
-environment:
+  browserName: ""
+environments:
   test1:
     envName: test1
     appUrl: https://seleniumui.moderntester.pl/form.php
-    firstName: James
-    lastName: Hetfield
-    email: iron@fist.com
+    firstName: Jan
+    lastName: Kowalski
+    email: jkow@asd.com
     age: 47
     continent: asia
     message: Form send with success
-    command: Browser Commands
+    command: browser-commands
     filepath: src/main/resources/file.txt
 
   test2:
     envName: test2
     appUrl: https://seleniumui.moderntester.pl/form.php
-    firstName: Lars
-    lastName: Ulrich
-    email: lars@drums.com
+    firstName: Mateusz
+    lastName: Nowak
+    email: mnowak@qwe.com
     age: 44
     continent: africa
     message: Form send with success
-    command: Switch Commands
+    command: switch-commands
     filepath: src/main/resources/file.txt
 
   test3:
     envName: test3
     appUrl: https://seleniumui.moderntester.pl/form.php
-    firstName: Kirk
-    lastName: Hammet
-    email: cry@baby.com
+    firstName: Jan
+    lastName: Kowal
+    email: jkowal@poi.pl
     age: 39
     continent: europe
     message: Form send with success
-    command: Wait Commands
+    command: wait-commands
     filepath: src/main/resources/file.txt
 
 
